@@ -5,6 +5,29 @@ import { Provider, Translate, Translator } from 'react-translated';
 import translation from './translation';
 
 class App extends Component {
+
+  constructor(){
+    super();
+    this.state = {
+      elements: []
+    }
+  }
+
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/posts/')
+    .then(response => {return response.json();})
+    .then(data => {
+      console.log(data);
+      let elements = data.map((element) => {
+        return(
+          <li>{element.title} - {element.body}</li>
+        )
+      });
+
+      this.setState({elements: elements});
+    })
+  }
+
   render() {
     return (
       <Provider language="es" translation={translation}>
@@ -20,7 +43,11 @@ class App extends Component {
               </div>
               <div class="col-lg-5 col-md-7 col-sm-12">
                 <Translate text='Agregar elemento' />
-                <div></div>
+                <div>
+                  <ul>
+                    {this.state.elements}
+                  </ul>
+                </div>
               </div>
               <div class="col-lg-3 col-md-5 col-sm-12">
                 <Translate text='Propiedades' />
