@@ -6,7 +6,8 @@
     "bootstrap": "^4.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "0.9.5"
+    "react-scripts": "0.9.5",
+    "react-translated": "^2.2.0"
   },
   "devDependencies": {},
   "scripts": {
