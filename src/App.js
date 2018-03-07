@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import './App.css';
-
 import { Provider, Translate, Translator } from 'react-translated';
 import translation from './translation';
 
+import './App.css';
+
+//Components
+import MenuElementsList from './components/MenuElementsList'
+
 class App extends Component {
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
       elements: []
     }
@@ -17,14 +20,13 @@ class App extends Component {
     fetch('https://jsonplaceholder.typicode.com/posts/')
     .then(response => {return response.json();})
     .then(data => {
-      console.log(data);
-      let elements = data.map((element) => {
+      /*let elements = data.map((element) => {
         return(
           <li>{element.title} - {element.body}</li>
         )
-      });
+      });*/
 
-      this.setState({elements: elements});
+      this.setState({elements: data});
     })
   }
 
@@ -32,24 +34,19 @@ class App extends Component {
     return (
       <Provider language="es" translation={translation}>
         <div className="App">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-lg-12 col-md-12 col-sm-12">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-lg-12 col-md-12 col-sm-12">
                 <h2>KIDA Form Designer</h2>
               </div>
-              <div class="col-lg-4 col-md-12 col-sm-12">
+              <div className="col-lg-4 col-md-12 col-sm-12">
                 <Translate text='Formulario' />
-                <div></div>
+                <MenuElementsList elements={this.state.elements} />
               </div>
-              <div class="col-lg-5 col-md-7 col-sm-12">
+              <div className="col-lg-5 col-md-7 col-sm-12">
                 <Translate text='Agregar elemento' />
-                <div>
-                  <ul>
-                    {this.state.elements}
-                  </ul>
-                </div>
               </div>
-              <div class="col-lg-3 col-md-5 col-sm-12">
+              <div className="col-lg-3 col-md-5 col-sm-12">
                 <Translate text='Propiedades' />
                 <div></div>
               </div>
